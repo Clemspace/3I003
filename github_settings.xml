@@ -1,0 +1,7 @@
+<application>
+  <component name="GithubAccounts">
+    <account id="f79aff24-3b14-40b7-9e73-5198439c2b6e" name="Clemspace">
+      <server host="github.com" />
+    </account>
+  </component>
+</application>
