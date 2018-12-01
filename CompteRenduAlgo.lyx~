@@ -6,9 +6,6 @@
 \origin unavailable
 \textclass article
 \use_default_options true
-\begin_modules
-algorithm2e
-\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -80,29 +77,37 @@ algorithm2e
 
 \begin_body
 
-\begin_layout Author
+\begin_layout Title
 Compte Rendu 3I003
+\end_layout
+
+\begin_layout Title
+Confitures :))
 \end_layout
 
 \begin_layout Author
 Rémi Dadvisard et Clément Castellon
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Partie Théorique
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Algorithme 1: Recherche Exhaustive
 \end_layout
 
-\begin_layout Subsection
-Montrer par récurrence forte sur S la validité et la terminaison de cet
- algorithme lorsqu’il est appelé par l’appel initial RechercheExhaustive(
- k , V , S ).
+\begin_layout Paragraph
+Question 1
 \end_layout
 
 \begin_layout Standard
+Montrer par récurrence forte sur S la validité et la terminaison de cet
+ algorithme lorsqu’il est appelé par l’appel initial RechercheExhaustive(k,
+ V, S).
+\end_layout
+
+\begin_layout Description
 Terminaison: 
 \end_layout
 
@@ -118,26 +123,271 @@ Sur S, si S<V[i], alors on cherche a comparer avec V[i-1](<V[i]), et on
 
 \begin_layout Itemize
 Sur S-V[i], si S-V[i] est négatif, alors l'algo termine.
-\end_layout
-
-\begin_layout Subsection
-Supposons que les seuls bocaux disponibles sont des bocaux de capacités
- 1dg et 2dg.
- On note a ( s ) le nombre d’appels r ́ecursifs effectu ́es par RechercheExhaust
-ive(2,[1,2], s ).
  
 \end_layout
 
-\begin_layout Subsection
-a) Exprimer a(s) sous forme d’une suite récursive.
+\begin_layout Description
+Validité:
 \end_layout
 
-\begin_layout Subsection
-b) Soit b(s) la suite définie par b(s) = 
+\begin_layout Description
+Conclusion:
+\end_layout
+
+\begin_layout Paragraph
+Question 2
 \end_layout
 
 \begin_layout Standard
-<
+Supposons que les seuls bocaux disponibles sont des bocaux de capacités
+ 1dg et 2dg.
+ On note a(s) le nombre d’appels récursifs effectués par RechercheExhaustive(2,
+ [ 1, 2 ], s).
+ 
+\end_layout
+
+\begin_layout Standard
+a)Exprimer a(s) sous forme d’une suite récursive.
+ 
+\end_layout
+
+\begin_layout Quote
+Soit b(s) la suite définie par:
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $b\left(s\right)=\begin{cases}
+0 & si\;s=0\\
+2 & si\;s=1\\
+2b(s-2)+2 & si\;s\geq2
+\end{cases}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Quote
+Soit c(s) la suite définie par:
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $c\left(s\right)=\begin{cases}
+0 & si\;s=0\\
+2c(s-1)+2 & si\;s\geq1
+\end{cases}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\noindent
+b)Montrer que pour tout entier 
+\begin_inset Formula $s\geq0$
+\end_inset
+
+, on a 
+\begin_inset Formula $b(s)\leq a(s)\leq c(s)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+c)Quel est le terme général de la suite c(s)? Justifiez.
+\end_layout
+
+\begin_layout Standard
+\noindent
+d)En déduire que 
+\begin_inset Formula $b(s)=c(\lceil\frac{s}{2}\rceil)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+e)Donner le terme général de la suite b(s).
+ En déduire un encadrement du nombre d'appels récursifs réalisés par RechercheEx
+haustive(2, [1, 2], s).
+ Que peut-on en conclure quant à la complexité temporelle de l'algorithme
+ RechercheExhaustive?
+\end_layout
+
+\begin_layout Subsection
+Algorithme II : Programmation dynamique
+\end_layout
+
+\begin_layout Standard
+Pour ce deuxième algorithme, nous allons exploiter la structure du problème
+ pour éviter une exploration exhaustive de toutes les solutions.
+ 
+\end_layout
+
+\begin_layout Standard
+On note m(S) le nombre minimum de bocaux pour S décigrammes de confiture
+ et un tableau de capacités V.
+ On définit une famille de problèmes intermédiaires de la façon suivante:
+ étant donnés un entier s et un entier 
+\begin_inset Formula $\forall i\in\left\{ 1,\ldots,k\right\} $
+\end_inset
+
+, on note m(s, i) le nombre minimum de bocaux nécessaires pour une quantité
+ totale s en ne choisissant des bocaux que dans le système de capacités
+ V [1], V [2] , .
+ .
+ .
+ , V[i].
+ 
+\end_layout
+
+\begin_layout Standard
+Pour initialiser la récursion, on pose: 
+\end_layout
+
+\begin_layout Description
+- 
+\begin_inset Formula $m(0,i)=0\qquad\forall i\in\left\{ 1,\ldots,k\right\} $
+\end_inset
+
+ : il est possible de réaliser la capacité totale 0 avec 0 bocal.
+ 
+\end_layout
+
+\begin_layout Description
+- 
+\begin_inset Formula $m(s,0)=+\infty\qquad\forall s\geq1$
+\end_inset
+
+ : il n’est pas possible de réaliser la capacité s ≥ 1 sans utiliser au
+ moins un bocal.
+ 
+\end_layout
+
+\begin_layout Description
+- 
+\begin_inset Formula $m(s,i)=+\infty\qquad$
+\end_inset
+
+ 
+\begin_inset Formula $\forall i\in\left\{ 1,\ldots,k\right\} ,\:\;\forall s>0$
+\end_inset
+
+ : il n’est pas possible de réaliser une capacité négative.
+\end_layout
+
+\begin_layout Paragraph
+Question 3
+\end_layout
+
+\begin_layout Standard
+a)Quelle est la valeur de m(S) en fonction des valeurs m(s,i) définies dans
+ la section précédente?
+\end_layout
+
+\begin_layout Standard
+b)Montrer la relation de récurrence suivante pour tout 
+\begin_inset Formula $\boldsymbol{i\in\left\{ 1,\ldots,k\right\} }$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+m(s,i)=\begin{cases}
+0 & si\;s=0\\
+\min\left\{ m(s,i-1),m(s-V[i],i)+1\right\}  & sinon
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Question 4
+\end_layout
+
+\begin_layout Standard
+Pour résoudre le problème de manière plus efficace que l’algorithme RechercheExh
+austive, on va utiliser l’approche dite de programmation dynamique .Le calcul
+ des valeurs m(s, i), grâce à la relation de récurrence décrite dans la
+ question précédente, nous permettra de trouver m(S).
+\end_layout
+
+\begin_layout Standard
+L’idée maîtresse est de ne pas calculer une même valeur m(s, i) plusieurs
+ fois: pour cela on stocke ces valeurs dans un tableau M doublement indicé.
+ Dans chaque case du tableau M[s, i] (avec s ∈{ 0 , .
+ .
+ .
+ , S } et i ∈{ 0 , .
+ .
+ .
+ , k }), on stocke la valeur m(s,i), c’est-à-dire soit une valeur ∞ , soit
+ le nombre de bocaux utilisés.
+\end_layout
+
+\begin_layout Standard
+a)Décrire (et justifier) dans quel ordre les cases du tableau M peuvent
+ être remplies en utilisant la formule de récurrence.
+\end_layout
+
+\begin_layout Standard
+b)En déduire un algorithme AlgoProgDyn (en pseudo-code) qui détermine le
+ nombre de bocaux nécessaires pour une quantité de confiture S.
+\end_layout
+
+\begin_layout Standard
+c)Analyser la Complexité temporelle et spatiale de cet algorithme.
+ On entend par Complexité spatiale l'espace mémoire requis en fonction de
+ k et S.
+\end_layout
+
+\begin_layout Itemize
+Complexité temporelle:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L'algorithme effectue un parcours de chaque case du tableau en fonction
+ des valeurs trouvées pour des s inférieurs, et termine lorsqu'il est à
+ la case V[S][k].
+ Il effectue donc un traitement pour chaque case, et il y a 
+\begin_inset Formula $S\times k$
+\end_inset
+
+cases dans la matrice utilisée, donc cet algorithme a une Complexité de
+ 
+\begin_inset Formula $\Theta(S\times k)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Complexité spatiale:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L'algorithme va nécessiter un stockage d'un tableau de 
+\begin_inset Formula $S\times k$
+\end_inset
+
+cases, donc il a une complexité spatiale de 
+\begin_inset Formula $\Theta(S\times k)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Mise en œuvre
 \end_layout
 
 \end_body
