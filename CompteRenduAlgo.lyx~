@@ -102,5 +102,43 @@ Montrer par récurrence forte sur S la validité et la terminaison de cet
  k , V , S ).
 \end_layout
 
+\begin_layout Standard
+Terminaison: 
+\end_layout
+
+\begin_layout Standard
+RechercheExhaustive(k, V, S) est une fonction récursive, et ne fait des
+ appels que sur S, ou S-V[i].
+\end_layout
+
+\begin_layout Itemize
+Sur S, si S<V[i], alors on cherche a comparer avec V[i-1](<V[i]), et on
+ termine quand on atteint V[0].
+\end_layout
+
+\begin_layout Itemize
+Sur S-V[i], si S-V[i] est négatif, alors l'algo termine.
+\end_layout
+
+\begin_layout Subsection
+Supposons que les seuls bocaux disponibles sont des bocaux de capacités
+ 1dg et 2dg.
+ On note a ( s ) le nombre d’appels r ́ecursifs effectu ́es par RechercheExhaust
+ive(2,[1,2], s ).
+ 
+\end_layout
+
+\begin_layout Subsection
+a) Exprimer a(s) sous forme d’une suite récursive.
+\end_layout
+
+\begin_layout Subsection
+b) Soit b(s) la suite définie par b(s) = 
+\end_layout
+
+\begin_layout Standard
+<
+\end_layout
+
 \end_body
 \end_document
