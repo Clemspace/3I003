@@ -104,7 +104,7 @@ Montrer par récurrence forte sur S la validité et la terminaison de cet
 \end_layout
 
 \begin_layout Description
-Terminaison: 
+Terminaison:
 \end_layout
 
 \begin_layout Standard
@@ -122,12 +122,40 @@ Sur S-V[i], si S-V[i] est négatif, alors l'algo termine.
  
 \end_layout
 
+\begin_layout Standard
+L’algorithe se termine si s≤0, récursivement, la valeur de S est réduite
+ de V[i] ≥0, à chaque appel, on a une boucle strictement décroissante, donc
+ il existe un appel ou s sera négatif ou nul.
+ ET donc si un appel récursif termine, tous les appels récursifs termineront.
+ 
+\end_layout
+
 \begin_layout Description
 Validité:
 \end_layout
 
 \begin_layout Description
-Conclusion:
+Validité: P(i) = « NbCont égal au nombre minimum pour remplir S=i » P(0)
+ =0 donc valide P(1) = 1 Valide (V[1] = 1 étant obligatoire)
+\end_layout
+
+\begin_layout Description
+x prends la plus petite valeur de RechercheExhaustive(k, V, S-V[k]) à RechercheE
+xhaustive(k, V, S-V[1]).
+ Qui sont valides par HR.
+ Or, pour chacune de ses valeurs; il a besoin d’un seul bocal en plus, donc
+ le nombre minimum sera égal a min(RechercheExhaustive(k, V, S-x) avec x
+ appartenant à V) + 1.
+ NBCont(i) renvoie ce nombre, donc: 
+\end_layout
+
+\begin_layout Description
+RechercheExhaustive(k, V, S) est valide.
+ 
+\end_layout
+
+\begin_layout Description
+Conclusion: donc l'algorithme est valide et se termine
 \end_layout
 
 \begin_layout Paragraph
@@ -144,7 +172,21 @@ Supposons que les seuls bocaux disponibles sont des bocaux de capacités
 
 \begin_layout Standard
 a)Exprimer a(s) sous forme d’une suite récursive.
- 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $a(s)$
+\end_inset
+
+
+\begin_inset Formula $=\begin{cases}
+0 & si\:s=0\\
+2 & si\:s=1\\
+a(s-1)+a(s-2)+2 & si\:s\geq2
+\end{cases}$
+\end_inset
+
+ .
 \end_layout
 
 \begin_layout Quote
@@ -190,8 +232,145 @@ b)Montrer que pour tout entier
 \end_layout
 
 \begin_layout Standard
+La suite est strictement croissante et positive, on a donc 
+\begin_inset Formula $a(s-1)+a(s-2)+2\geq a(s-1)$
+\end_inset
+
+ et 
+\begin_inset Formula $a(s-1)\geq a(s-2)$
+\end_inset
+
+ on a donc 
+\begin_inset Formula $a(s-1)+a(s-2)\leq2a(s-1)$
+\end_inset
+
+ et 
+\begin_inset Formula $2a(s-2)\leq a(s-1)+a(s-2)$
+\end_inset
+
+ on a ainsi 
+\begin_inset Formula $2a(s-2)+2\leq a(s-1)+a(s-2)+2\leq2(s-1)$
+\end_inset
+
+ or les suites a, b et c ont les mêmes premiers termes, on peut donc remplacer
+ les termes de l'inégalité.
+ on a ainsi 
+\begin_inset Formula $b(s)\leq a(s)\leq c(s)$
+\end_inset
+
+pour tout entier 
+\begin_inset Formula $s\geq0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \noindent
 c)Quel est le terme général de la suite c(s)? Justifiez.
+\end_layout
+
+\begin_layout Standard
+Initialisation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{0}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{1}=2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{2}=6$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{3}=14$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On décèle que 
+\begin_inset Formula $c_{n}=2^{n+1}-2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Supposons 
+\begin_inset Formula $P_{n}=\:c_{n}=2^{n+1}-2$
+\end_inset
+
+ pour un n donné, montrons 
+\begin_inset Formula $P_{n+1}$
+\end_inset
+
+: 
+\begin_inset Formula $c_{n+1}=2^{n+2}-2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Induction:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{n+1}=2c(n+1-1)+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{n+1}=2*(2^{n+1}-2)+2$
+\end_inset
+
+ Par H.R
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{n+1}=2^{n+2}-4+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{n+1}=2^{n+2}-2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hérédité confirmée.
+ 
+\emph on
+On en déduit donc que 
+\begin_inset Formula $c_{n}=2^{n+1}-2$
+\end_inset
+
+ pour tout 
+\begin_inset Formula $n\geq0$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -204,12 +383,146 @@ d)En déduire que
 \end_layout
 
 \begin_layout Standard
+
+\emph on
+Posons P:
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $b(k)=c(\lceil\frac{k}{2}\rceil)$
+\end_inset
+
+ avec 
+\begin_inset Formula $k=\left\{ 0,...,n\right\} $
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ pour un n donné, montrons 
+\begin_inset Formula $P_{n+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Induction:
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(n+1)=2b(n-1)+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(n+1)=2c(\lceil\frac{n-1}{2}\rceil)+2$
+\end_inset
+
+ Par H.R
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(n+1)=2(2^{\lceil\frac{n-1}{2}\rceil+1}-2)+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(n+1)=2^{\lceil\frac{n-1}{2}\rceil+2}-2$
+\end_inset
+
+ or 
+\begin_inset Formula $\lceil\frac{n-1}{2}\rceil+2=\lceil\frac{n+1}{2}\rceil+1$
+\end_inset
+
+par définition de la partie entière
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(s+1)=2^{\lceil\frac{n+1}{2}\rceil+1}-2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $b(n+1)=c(\lceil\frac{n+1}{2}\rceil)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Hérédité confirmée par le théorème de la recurrence forte.
+\end_layout
+
+\begin_layout Standard
 \noindent
 e)Donner le terme général de la suite b(s).
  En déduire un encadrement du nombre d'appels récursifs réalisés par RechercheEx
 haustive(2, [1, 2], s).
  Que peut-on en conclure quant à la complexité temporelle de l'algorithme
  RechercheExhaustive?
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On déduit de la question précédente que 
+\begin_inset Formula $b(s)=2^{\lceil\frac{n}{2}\rceil+1}-2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On peut ainsi encadre la complexité 
+\begin_inset Formula $2^{\lceil\frac{n}{2}\rceil+1}-2\leq a(s)\leq2^{s+1}-2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On peut ainsi en déduire que RechercheExhaustive est minorée par 
+\begin_inset Formula $2^{n/2}$
+\end_inset
+
+et surtout majorée 
+\begin_inset Formula $2^{n}$
+\end_inset
+
+ par et donc de complexité 
+\begin_inset Formula $\mathcal{\mathcal{O}}(2^{n})$
+\end_inset
+
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -284,6 +597,13 @@ a)Quelle est la valeur de m(S) en fonction des valeurs m(s,i) définies dans
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $m(S)=m(S,k)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 b)Montrer la relation de récurrence suivante pour tout 
 \begin_inset Formula $\boldsymbol{i\in\left\{ 1,\ldots,k\right\} }$
 \end_inset
@@ -300,6 +620,55 @@ m(s,i)=\begin{cases}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Initialisation:
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Formula $m(0,i)=0$
+\end_inset
+
+ voir énoncé.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Supposons la relation de l'énoncé vraie pour les valeurs de m(s',i') avec
+ 
+\begin_inset Formula $s'\epsilon\left\{ 0,\ldots,s-1\right\} $
+\end_inset
+
+et 
+\begin_inset Formula $i'\epsilon\left\{ 0,\ldots,i\right\} $
+\end_inset
+
+ ainsi que la valeur 
+\begin_inset Formula $m(s,i-1)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+alors, soit m(s, i) utilise un bocal de la plus grande contenance et est
+ égal à m(s-V[i],i)+1, soit il on ne l’utilise pas et m(s,i) = (s,i-1).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+or on veut minimiser la valeur de m(s,i) donc on a min(m(s,i-1),m(s-v[i],i)+1)
+ si s≠0
 \end_layout
 
 \begin_layout Paragraph
@@ -332,8 +701,93 @@ a)Décrire (et justifier) dans quel ordre les cases du tableau M peuvent
 \end_layout
 
 \begin_layout Standard
+
+\emph on
+On remplira le tableau à l'aide d'une boucle sur s d'abord, puis sur i à
+ l'interieur de celle-ci: On remplit pour chaque s les i possibilités avant
+ de passer à la valeur de s suivante
+\end_layout
+
+\begin_layout Standard
 b)En déduire un algorithme AlgoProgDyn (en pseudo-code) qui détermine le
  nombre de bocaux nécessaires pour une quantité de confiture S.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+AlgoProgDyn(S,V,k):
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Creer un tableau m(S,I)
+\end_layout
+
+\begin_layout Plain Layout
+Pour tout s appartenant à {0,...,S}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $m(s,0)=+\infty$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+Pour tout i appartenant à {0,...,k}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $m(0,i)=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+pour tout s appartenant à {1,...S}:
+\end_layout
+
+\begin_layout Plain Layout
+pour tout i appartenant à {1,...,k}:
+\end_layout
+
+\begin_layout Plain Layout
+m(s,i)=min(m(s,i-1), m(s-V[i],i)+1}
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+retourner m(s,i)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -382,6 +836,43 @@ cases, donc il a une complexité spatiale de
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+10- Si S≤V[2] alors, on a pour seule solution de n’utiliser que des bocaux
+ de taille 1, donc l’algorithme glouton sera une solution optimale.
+\end_layout
+
+\begin_layout Standard
+Si S≥V[2], soit y la valeur rendue par l’algorithme glouton, avec y=a+b
+ et a*V[2]+b= S, la division euclidienne de S par V[2] Supposons x une solution
+ optimale qui n’est pas issue de l’algorithme glouton, avec un V de capacité
+ 2 et une quantité S, x<y, on a par définition x=a’+b’, a’ la quantité de
+ bocaux V[2] et b’ la quantité b’=S-a’*V[2] (nombre de bocaux de taille
+ 1 utilisés) supposons a’≠a et b’≠b.
+ (par définition du système de taille 2 si a’=a, b’=b)
+\end_layout
+
+\begin_layout Standard
+supposons a’>a, par définition de la division euclidienne, a’*V[2]>S donc
+ impossible.
+\end_layout
+
+\begin_layout Standard
+On a donc a’<a.
+ On a alors b’=b+(a-a’)*V[2] puisqu’on doit remplir le reste de la confiture
+ avec des bocaux de 1.
+ donc on a x= a’+b+v[2]a-V[2]a’ x=a+b +(V[2]-1)a-(V[2]-1)a’ x=a+b +(V[2]-1)a-a’
+ x= y + (V[2]-1)a-a’ or, a’<a donc, et V[2]>1 donc (V[2]-1)a-a’>0 Contradiction.
+ y < x, ABSURDE donc un système de capacité de taille 2 est toujours glouton-com
+patible 
+\end_layout
+
 \begin_layout Section
 Mise en œuvre
 \end_layout
