@@ -774,7 +774,11 @@ pour tout i appartenant à {1,...,k}:
 \end_layout
 
 \begin_layout Plain Layout
-m(s,i)=min(m(s,i-1), m(s-V[i],i)+1}
+m(s,i)=min{m(s,i-1), m(s-V[i],i)+1}
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
 \end_layout
 
 \begin_layout Plain Layout
@@ -836,6 +840,514 @@ cases, donc il a une complexité spatiale de
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Question 5 
+\end_layout
+
+\begin_layout Standard
+On désire à présent permettre à l’algorithme de retourner un tableau A indiquant
+ le nombre de bocaux pris pour chaque type de capacités.
+ 
+\end_layout
+
+\begin_layout Standard
+a) Une première id́ée est de placer dans chaque case du tableau M[s,i],
+ un tableau A indiquant les bocaux pris pour la capacité totale s et des
+ capacités de bocaux prises parmi V [1], .
+ .
+ .
+ , V [i].
+ Indiquer les modifications à effectuer dans l’algorithme précédent.
+ Indiquer la complexité spatiale de cet algorithme.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+AlgoProgDynTab(S,V,k):
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Soit m[S,I] un tableau de tuple(entier, tableau[k])
+\end_layout
+
+\begin_layout Plain Layout
+Pour tout s appartenant à {0,...,S}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $m(s,0)\left[1\right]=+\infty$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+Pour tout i appartenant à {0,...,k}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $m(0,i)\left[1\right]=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+pour tout s appartenant à {1,...S}:
+\end_layout
+
+\begin_layout Plain Layout
+pour tout i appartenant à {1,...,k}:
+\end_layout
+
+\begin_layout Plain Layout
+m(s,i)[1] =min{m(s,i-1)[1], m(s-V[i],i)[1]+1}
+\end_layout
+
+\begin_layout Plain Layout
+si m(s,i)[1]≠m(s,i-1)[1]:
+\end_layout
+
+\begin_layout Plain Layout
+m(s,i)[2][i]+=1
+\end_layout
+
+\begin_layout Plain Layout
+fin si
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+fin pour
+\end_layout
+
+\begin_layout Plain Layout
+retourner m(s,i)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+b) On souhaite éviter de copier dans chaque case du tableau M, les tableaux
+ A des bocaux utilisés.
+ Pour ce faire, on conserve l’algorithme initial et on va reconstituer a
+ posteriori le tableau A de la solution optimale : ce second algorithme
+ est souvent appelé “algorithme- retour” (ou “backward”).
+ L’id́ée est basée sur la remarque suivante : en remarquant que M[s,i] est
+ égal soit à M[s−V[i],i]+1; soit à M[s,i−1], on sera en mesure de savoir
+ si un bocal de capacit́é V [i] a été choisi ou non, et quelle case du tableau
+ il faut ensuite examiner pour connaître les autres bocaux choisis.
+ Décrire ce algorithme-retour (en pseudo-code) et indiquer la complexité
+ temporelle et spatiale globale de cet algorithme
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+AlgoProgDyn_retour(S,V,k,m):
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+(avec m le tableau de l'algorythme dynamique)
+\end_layout
+
+\begin_layout Plain Layout
+Soit A[k] un tableau
+\end_layout
+
+\begin_layout Plain Layout
+tant que s>0:
+\end_layout
+
+\begin_layout Plain Layout
+si m(s,k)=m(s-V[k],k)+1
+\end_layout
+
+\begin_layout Plain Layout
+A[k]= A[k]+1
+\end_layout
+
+\begin_layout Plain Layout
+S=S-V[k]
+\end_layout
+
+\begin_layout Plain Layout
+fin si
+\end_layout
+
+\begin_layout Plain Layout
+sinon k = k-1
+\end_layout
+
+\begin_layout Plain Layout
+fin tant que
+\end_layout
+
+\begin_layout Plain Layout
+retourner A
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+la compléxité temporelle dans le pire cas est en 
+\begin_inset Formula $\Theta(s+k)$
+\end_inset
+
+ iterations pour l'algortithme retour.
+ On a donc une complexité totale est en 
+\begin_inset Formula $\varTheta(s*k+s+k)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La complexité spatiale est en 
+\begin_inset Formula $\varTheta(s*k+k)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Question 6
+\end_layout
+
+\begin_layout Standard
+Peut-on dire que cet algorithme est polynomial ?
+\end_layout
+
+\begin_layout Standard
+La complexité, 
+\begin_inset Formula $\varTheta(s*k+k)$
+\end_inset
+
+ est un polynôme de degré 1.
+ l'algorithme est donc polynomial
+\end_layout
+
+\begin_layout Subsection
+Algorithme III : Cas particulier et algorithme glouton
+\end_layout
+
+\begin_layout Paragraph*
+Quetion 7
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+AlgoGlouton(S,V,k):
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+res = 0
+\end_layout
+
+\begin_layout Plain Layout
+tant queS > 0:
+\end_layout
+
+\begin_layout Plain Layout
+si S < v[k] :
+\end_layout
+
+\begin_layout Plain Layout
+k= k- 1
+\end_layout
+
+\begin_layout Plain Layout
+fin si
+\end_layout
+
+\begin_layout Plain Layout
+si S ≥ v[k]:
+\end_layout
+
+\begin_layout Plain Layout
+res += S // v[k] 
+\end_layout
+
+\begin_layout Plain Layout
+k= k-1 
+\end_layout
+
+\begin_layout Plain Layout
+S = S - (S // v[k]) * v[k]
+\end_layout
+
+\begin_layout Plain Layout
+fin si
+\end_layout
+
+\begin_layout Plain Layout
+fin tant que
+\end_layout
+
+\begin_layout Plain Layout
+retourner res
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sa complexité temporelle est dans le pire cas (uniquement des bocaux de
+ 1) 
+\begin_inset Formula $\mathcal{O}(s*k)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Question 8
+\end_layout
+
+\begin_layout Paragraph*
+Montrer qu’il existe des systèmes de capacités qui ne sont pas glouton-compatibl
+es.
+ Justifiez votre réponse.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Supposons S=160g et V={1,80,100}
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+l'algorithme glouton rendra 61 (1 bocal de 100 et 60 de 1)
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+alors qu'il existe la solution 2 (deux bocaux de 80)
+\end_layout
+
+\begin_layout Paragraph*
+Question 10 
+\end_layout
+
+\begin_layout Standard
+Montrer que tout système de capacité V avec k = 2 est glouton-compatible
+ (on rappelle qu’on a toujours V [1] = 1).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Demonstration par l'absurde:
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Si S≤V[2] alors, on a pour seule solution de n’utiliser que des bocaux de
+ taille 1, donc l’algorithme glouton sera une solution optimale.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Si S≥V[2], soit y la valeur rendue par l’algorithme glouton, avec 
+\begin_inset Formula $y=a+b$
+\end_inset
+
+ et a*V[2]+b=S, la division euclidienne de S par V[2].
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Supposons x une solution optimale qui n’est pas issue de l’algorithme glouton,
+ avec un V de capacité 2 et une quantité S, et x<y.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On a par définition x=a’+b’, a’ la quantité de bocaux V[2] et b’ la quantité
+ b’=S-a’*V[2] (nombre de bocaux de taille 1 utilisés) supposons a’≠a et
+ b’≠b.
+ (par définition du système de taille 2 si a’=a, b’=b).
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+supposons a’>a, par définition de la division euclidienne, a’*V[2]>S donc
+ impossible.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On a donc a’<a.
+ On a alors b’=b+(a-a’)*V[2] puisqu’on doit remplir le reste de la confiture
+ avec des bocaux de 1.
+ donc on a x=a’+b+v[2]a-V[2]a’
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+x=a+b +(V[2]-1)a-(V[2]-1)a’ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+x=a+b +(V[2]-1)a-a’ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+x= y + (V[2]-1)a-a’ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+or, a’<a donc, et V[2]>1 donc (V[2]-1)a-a’>0 et y<x
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Contradiction.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On peut donc montrer par l'absurde qu'un système de capacité de taille 2
+ est toujours glouton-compatible.
+\end_layout
+
+\begin_layout Paragraph*
+Question 11
+\end_layout
+
+\begin_layout Standard
+Prouver que cet algorithme de test est polynomial en donnant sa complexité.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+On peut facilement estimer la première boucle par 
+\begin_inset Formula $\varTheta(V[k])$
+\end_inset
+
+ (elle fait exactement V[k]+V[k-1]-V[3]+1 tours)
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+La deuxième boucle est effectuée k fois, et fait appel deux fois a AlgoGlouton
+ (de complexité 
+\begin_inset Formula $\mathcal{O}(s*k)$
+\end_inset
+
+) et fait une comparaison.
+ on a donc k tours en 
+\begin_inset Formula $\mathcal{O}(s*k+1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+on se retrouve donc avec une boucle en 
+\begin_inset Formula $\mathcal{O}(s*k^{2}+k)$
+\end_inset
+
+ et donc une complexité en 
+\begin_inset Formula $\varTheta(V[k]*(s*k^{2}+1))$
+\end_inset
+
+ qui est donc bien polynomiale
+\end_layout
+
 \begin_layout Section
 Mise en œuvre
 \end_layout
