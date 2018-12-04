@@ -78,7 +78,7 @@
 \begin_body
 
 \begin_layout Title
-Compte Rendu 3I003 Confitures :))
+Compte Rendu 3I003 Confitures 
 \end_layout
 
 \begin_layout Author
@@ -1722,11 +1722,11 @@ la solution o est optimale et différente de g.
 \end_layout
 
 \begin_layout Paragraph*
-b) Montrer que 􏰆 
+b) Montrer que 
 \begin_inset Formula $\sum V[i]g_{i}$
 \end_inset
 
- = 􏰆 
+ = 
 \begin_inset Formula $\sum V[i]o_{i}$
 \end_inset
 
@@ -1738,7 +1738,7 @@ Si j=k, on a
 \begin_inset Formula $\sum V[i]gi$
 \end_inset
 
- = 􏰆 
+ = 
 \begin_inset Formula $\sum V[i]oi$
 \end_inset
 
@@ -1746,7 +1746,7 @@ Si j=k, on a
 \end_layout
 
 \begin_layout Paragraph*
-c) En déduire que 􏰆 
+c) En déduire que 
 \begin_inset Formula $\mathop{\sum}$
 \end_inset
 
@@ -1917,6 +1917,40 @@ on se retrouve donc avec une boucle en
 
 \begin_layout Section
 Mise en œuvre
+\end_layout
+
+\begin_layout Paragraph*
+Question 12
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename exhaustive.png
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Temps d'éxécution de l'algorithme exhaustif en fonction de la valeur k (courbe
+ analogue pour S)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 2.png
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Temps d'éxécution pour l'algorithme Glouton, en fonction de la valeur S(courbe
+ analogue pour k), temps linéaire et éxécution très rapide.
 \end_layout
 
 \end_body
