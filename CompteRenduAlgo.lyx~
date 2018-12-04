@@ -1296,8 +1296,8 @@ Contradiction.
 \begin_layout Standard
 
 \emph on
-On peut donc montrer par l'absurde qu'un système de capacité de taille 2
- est toujours glouton-compatible.
+On a donc montré l'absurde qu'un système de capacité de taille 2 est toujours
+ glouton-compatible.
 \end_layout
 
 \begin_layout Paragraph*
