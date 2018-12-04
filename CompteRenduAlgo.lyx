@@ -1645,6 +1645,71 @@ alors qu'il existe la solution 2 (deux bocaux de 80)
 \end_layout
 
 \begin_layout Paragraph*
+Question 9 (Bonus)
+\end_layout
+
+\begin_layout Paragraph*
+a) Montrer qu’il existe un plus grand indice j pris dans {1,...,k} tel que
+ oj < gj.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+la solution o est optimale et différente de g.
+ le nombre de bocaux total utilisé par o est donc inferieur ou égal a celui
+ de g.
+ il existe donc forcément un indice j tel que 
+\begin_inset Formula $o_{j}<g_{j}$
+\end_inset
+
+(si tous les indices de o sont supperieurs, o utilise plus de bocaux, et
+ si ils sont égaux o=g)
+\end_layout
+
+\begin_layout Paragraph*
+b) Montrer que 􏰆 
+\begin_inset Formula $\sum V[i]g_{i}$
+\end_inset
+
+ = 􏰆 
+\begin_inset Formula $\sum V[i]o_{i}$
+\end_inset
+
+ pour i allant de 1 à j
+\end_layout
+
+\begin_layout Standard
+Si j=k, on a 
+\begin_inset Formula $\sum V[i]gi$
+\end_inset
+
+ = 􏰆 
+\begin_inset Formula $\sum V[i]oi$
+\end_inset
+
+ = S.
+\end_layout
+
+\begin_layout Paragraph*
+c) En déduire que 􏰆 
+\begin_inset Formula $\mathop{\sum}$
+\end_inset
+
+V [i]oi ≥ V [j]
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+on peut en déduire que la solution optimale o ne passe pas par l'algorithme
+ glouton.
+ car il reste assez de confiture dans les pots V[1] à V[J-1] dans la solution
+ o pour remplir au moins un pot de taille V[j] (ce que l'algorithme glouton
+ ne laisse pas passer)
+\end_layout
+
+\begin_layout Paragraph*
 Question 10 
 \end_layout
 
