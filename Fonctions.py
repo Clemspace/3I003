@@ -1,24 +1,31 @@
 import numpy as np
+import re
 import time
 
 
 def lecturefichier(f):
 
-    file = open(f, "r")
+    with open(f, "r") as file:
 
 
-    S = file.readline()
-    k = file.readline()
+        S = file.readline()
+        k = file.readline()
 
-    V = [[0] * k for _ in range(S)]
+        V = [[0] * k for i in range(S)]
 
-    V[0] = list(map(int, file.readline(k).split()))
+        V[0] = list(map(int, file.readline(k).split()))
 
-    file.close()
+    return k,V[0],S
 
-    return V
+def lecture(f):
 
-def genfichiertests(nom, k, pmax, s):
+    with open(f,"r") as file:
+
+        temp = file.readlines()
+
+    return int(temp[0]), int(temp[1]), list(map(int, temp[2].split())) #s, k et v renvoyés
+
+def genfichieralea(nom, k, pmax, s):
     """
     crée un fichier txt avec :
        ligne 1: valeur s > pmax, plus petite que smax
@@ -30,14 +37,26 @@ def genfichiertests(nom, k, pmax, s):
 
     #s = np.random.randint()
     #k = np.random.randint(2, high = k)
-    v = 1 + np.random.randint(2, high = pmax, size = k-1)
+    v = 1+ np.random.randint(2, high = pmax, size = k-1)
     v.sort()
 
-    file.write(s + "\n")
-    file.write(k + "\n")
-    file.write(v)
+
+    file.write(str(s) + "\n")
+    file.write(str(k) + "\n")
+    file.write(re.sub('[\[\]]','',np.array2string(v)))
 
     file.close()
+
+
+def genfichierexpo(nom, s, k, d):
+
+    with open(nom,"w+") as file:
+        v = " ".join([str(d**i) for i in range(k)])
+        file.write(str(s) + "\n")
+        file.write(str(k) + "\n")
+        file.write(v)
+    return nom
+
 
 
 def timerfunc(func):
@@ -117,22 +136,21 @@ def m(s, i, v):
         return min( m(s, i-1, v), m(s-v[i], i, v)+1)
 
 
-def algoglouton(S, v):
+def algoglouton(S,k, v):
 
     res = 0
-    i = range(v[0])
-
+    i = k-1
     while S > 0:
 
-        if S < v[0][i] :
+        if S < v[i]:
 
             i-=1
 
-        elif S >= v[0][i]:
+        elif S >= v[i]:
 
-            res += S // v[0][i]
+            res += S // v[i]
+            S = S - (S // v[i]) * v[i]
             i-=1
-            S = S - (S // v[0][i]) * v[0][i]
 
     return res
 
@@ -143,11 +161,11 @@ def TestGloutonCompatible(k, v):
 
     if k >= 3:
 
-        for S in range(v[3]+2, v[k-1] + v[k]-1):
+        for S in range(v[3]+2, v[k-1]+v[k]-1):
 
             for j in range (1,k):
 
-                if v[j] < S & algoglouton(S) > 1+algoglouton(S-v[0][j]):
+                if v[j] < S & algoglouton(S) > 1+algoglouton(S-v[j]):
 
                     return False
     return True
